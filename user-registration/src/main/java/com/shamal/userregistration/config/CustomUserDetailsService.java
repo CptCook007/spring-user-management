@@ -1,4 +1,4 @@
-package com.shamal.userregistration.service;
+package com.shamal.userregistration.config;
 
 import com.shamal.userregistration.config.CustomUserPrincipal;
 import com.shamal.userregistration.model.UserInformation;
