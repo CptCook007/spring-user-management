@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style th:inline="text">
+    .login-body {
+      background : url([[@{/img/login-background.jpg}]]);
+      background-repeat: no-repeat;
+      background-size: fill;
+      background-position: center;
+      height : 45.1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav th:insert="~{navbar :: noBtnNavbarFragment}"></nav>
+  </header>
+  <section class="login-body">
+    <div th:if="${param.error}" class="alert alert-danger mb-5 text-center">
+      Invalid username and password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success text-center">
+      Logged out Successfully</div>
+    <div class="container pt-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+              <h3 class="mb-5">Sign in</h3>
+              <form th:action="@{/login}" method="post">
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="username">Username</label>
+                  <input type="text" id="username" name="username" class="form-control form-control-lg" required />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="password">Password</label>
+                  <input type="password" id="password" class="form-control form-control-lg" name="password" required />
+                </div>
+
+                <!-- Checkbox -->
+                <!--                <div class="form-check d-flex justify-content-start mb-4">-->
+                <!--                  <input class="form-check-input" type="checkbox" value="" id="form1Example3" />-->
+                <!--                  <label class="form-check-label" for="form1Example3"> Remember password </label>-->
+                <!--                </div>-->
+
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="LOG IN">
+              </form>
+              <hr class="my-4">
+              <p class="text-center">Are you new here? <a href="/signup">Sign up</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+
+    </script>
+</body>
+
+</html>

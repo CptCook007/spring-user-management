@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <title>Home</title>
+    </head>
+    <body class="bg-dark">
+        <header>
+            <div th:insert="~{navbar :: navbarFragment}">
+            </div>
+            <div th:if="${success}" class="bg-success text-center text-light ">
+                <span>Registration is successful. You can now login</span>
+            </div>
+            <h1 class="mt-5 mb-5 text-light" style="text-align : center;">WELCOME</h1>
+        </header>
+        <main class="container mt-5 d-flex justify-content-around">
+            <div class="row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="card" style = "height : 20rem; width : 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title text-xl text-center font-weight-bold mb-5 mt-5">LOGIN</h4>
+                            <p class="card-text text-lg text-center mt-5">If you are an existing user,  please login</p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/login" class="btn btn-primary mb-4 p-2" style="width:10rem;">LOGIN</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card" style = "height : 20rem; width : 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title text-xl text-center font-weight-bold mb-5 mt-5">REGISTER</h4>
+                            <p class="card-text text-lg text-center mt-5">If you are a new user, please signup</p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/signup" class="btn btn-primary mb-4 p-2" style="width:10rem;">REGISTER</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+                crossorigin="anonymous">
+
+        </script>
+    </body>
+</html>
