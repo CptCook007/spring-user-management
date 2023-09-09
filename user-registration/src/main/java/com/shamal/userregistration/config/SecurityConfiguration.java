@@ -1,5 +1,6 @@
 package com.shamal.userregistration.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,10 +14,8 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    @Bean
-    public SuccessHandler successHandler(){
-        return new SuccessHandler();
-    }
+    @Autowired
+    SuccessHandler successHandler;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,UserDetailsService userDetailsService) throws Exception {
         http
@@ -30,7 +29,7 @@ public class SecurityConfiguration {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .successHandler(successHandler())
+                                .successHandler(successHandler)
                                 .permitAll()
                 )
                 .logout(logout ->
@@ -58,20 +57,4 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer ignoringCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/img/**");
     }
-//    @Bean
-//    UserDetailsService getUserDetailsService() {
-//        return new CustomUserDetailsService();
-//    }
-//    @Bean
-//    BCryptPasswordEncoder getPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-
-//    @Bean
-//    DaoAuthenticationProvider getDaoAuthProvider() {
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(getUserDetailsService());
-//        daoAuthenticationProvider.setPasswordEncoder(getPasswordEncoder());
-//        return daoAuthenticationProvider;
-//    }
 }
