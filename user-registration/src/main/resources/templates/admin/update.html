@@ -10,6 +10,12 @@
 
 <body>
   <div th:replace="~{navbar :: noBtnNavbarFragment}"></div>
+  <div th:if="${param.emailError}" class="bg-danger text-center text-white">
+    <span>The E-mail ID already exists</span>
+  </div>
+  <div th:if="${param.userNameError}" class="bg-danger text-center text-white">
+    <span>The Username already exists</span>
+  </div>
   <h1 class="text-center mt-3">UPDATE USER</h1>
   <hr>
   <div class="form card d-flex justify-content-center align-items-center flex-column">

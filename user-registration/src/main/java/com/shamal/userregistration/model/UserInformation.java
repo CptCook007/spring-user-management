@@ -26,8 +26,5 @@ public class UserInformation{
     private String password;
     @Column(nullable = false,columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private String role = "USER";
-    public boolean checkValid(){
-        return !(username.isEmpty()||email.isEmpty()||password.isEmpty());
-    }
 
 }

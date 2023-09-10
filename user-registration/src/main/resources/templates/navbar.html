@@ -48,9 +48,9 @@
                 </div>
             </form>
             <span class="navbar-text">
-                <form th:action="@{/signup}" method="get">
-                    <input type="submit" class="btn btn-success" value="CREATE USER">
-                </form>
+                    <a th:href="@{/admin/home/admin-panel/user-creation}">
+                    <button class="btn btn-success">CREATE USER</button>
+                    </a>
             </span>
             <span class="navbar-text">
                 <form th:action="@{/logout}" method="post">

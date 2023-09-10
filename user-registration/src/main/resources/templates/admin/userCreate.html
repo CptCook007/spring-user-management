@@ -10,10 +10,16 @@
 
 <body>
 <div th:replace="~{navbar :: noBtnNavbarFragment}"></div>
-<h1 class="text-center mt-3">Create new admin</h1>
+<div th:if="${param.emailError}" class="bg-danger text-center text-white">
+    <span>The E-mail ID already exists</span>
+</div>
+<div th:if="${param.userNameError}" class="bg-danger text-center text-white">
+    <span>The Username already exists</span>
+</div>
+<h1 class="text-center mt-3">Create new user</h1>
 <hr>
 <div class="form card d-flex justify-content-center align-items-center flex-column">
-    <form class="container card-body row d-flex justify-content-center align-items-center flex-column" th:action="@{/admin/home/admin-panel/create-admin}" method="post"
+    <form class="container card-body row d-flex justify-content-center align-items-center flex-column" th:action="@{/admin/home/admin-panel/create-user}" method="post"
           style="width:50%">
         <div class="col-md-5">
             <label for="username" class="form-label p-2 text-dark">Username</label>

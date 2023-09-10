@@ -19,4 +19,6 @@ public interface UserService {
     boolean checkEmailExist(String email);
 
     UserInformation findUserById(long id);
+
+    boolean checkUsernameExist(String username);
 }

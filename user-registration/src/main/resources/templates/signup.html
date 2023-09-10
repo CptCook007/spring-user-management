@@ -16,8 +16,11 @@
   </div>
   <div th:if="${param.logout}" class="alert alert-success text-center">
     Logged out Successfully</div> -->
-    <div th:if="${error}" class="bg-danger text-center text-white">
+    <div th:if="${param.emailError}" class="bg-danger text-center text-white">
         <span>Account has been already registered with this Email ID</span>
+    </div>
+    <div th:if="${param.userNameError}" class="bg-danger text-center text-white">
+        <span>Account has been already registered with this user name</span>
     </div>
     <h1 class="mt-5 mb-4 text-center text-dark">SIGNUP</h1>
     <div class="d-flex justify-content-center">

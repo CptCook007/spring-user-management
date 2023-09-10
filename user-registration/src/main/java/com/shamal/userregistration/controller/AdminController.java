@@ -36,7 +36,14 @@ public class AdminController {
         return "admin/update";
     }
     @PostMapping("/admin/home/admin-panel/Update/save/{id}")
-    public String saveChanges(Model model,@PathVariable("id") long id,@ModelAttribute UserInformation user){
+    public String saveChanges(@PathVariable("id") long id,@ModelAttribute UserInformation user){
+        if(userService.checkEmailExist(user.getEmail())&&!user.getEmail().equals(userService.findUserById(id).getEmail())){
+//            model.addAttribute("error",true);
+            return "redirect:/admin/home/admin-panel/Update/{id}?emailError";
+        }
+        if(userService.checkUsernameExist(user.getUsername())&&!user.getUsername().equals(userService.findUserById(id).getUsername())){
+            return "redirect:/admin/home/admin-panel/Update/{id}?userNameError";
+        }
         userService.updateByID(id,user);
 //        model.addAttribute("updated",true);
         return "redirect:/admin/home/admin-panel?update=User+is+updated!";
@@ -48,14 +55,21 @@ public class AdminController {
 //        model.addAttribute("deleted",true);
         return "redirect:/admin/home/admin-panel?delete=User+deleted!";
     }
-    @GetMapping("/admin/home/admin-panel/admin-creation")
+    @GetMapping("/admin/home/admin-panel/user-creation")
     public String adminCreation(){
-        return "admin/adminCreate";
+        return "admin/userCreate";
     }
-    @PostMapping("/admin/home/admin-panel/create-admin")
+    @PostMapping("/admin/home/admin-panel/create-user")
     public String createAdmin(@ModelAttribute UserInformation user,Model model){
-        userService.saveAdmin(user);
-        model.addAttribute("adminCreated",true);
-        return "redirect:/admin/home/admin-panel?admin=Admin+created!";
+        if(userService.checkEmailExist(user.getEmail())){
+//            model.addAttribute("error",true);
+            return "redirect:/admin/home/admin-panel/user-creation?emailError";
+        }
+        if(userService.checkUsernameExist(user.getUsername())){
+            return "redirect:/admin/home/admin-panel/user-creation?userNameError";
+        }
+        userService.saveUser(user);
+        model.addAttribute("userCreated",true);
+        return "redirect:/admin/home/admin-panel?admin=User+created!";
     }
 }

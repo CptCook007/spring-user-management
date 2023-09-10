@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                 .rememberMe(rememberMe ->
                         rememberMe
                                 .rememberMeServices(rememberMeServices(userDetailsService))
+                                .userDetailsService(userDetailsService)
                                 .key("Token")
                 );
 

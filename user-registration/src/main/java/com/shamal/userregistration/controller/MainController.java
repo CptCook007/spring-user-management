@@ -1,11 +1,12 @@
 package com.shamal.userregistration.controller;
 
 import com.shamal.userregistration.model.UserInformation;
-import com.shamal.userregistration.repository.UserRepository;
 import com.shamal.userregistration.service.UserService;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,19 @@ import java.util.Set;
 
 @Controller
 public class MainController {
+    public String AuthRedirect(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+        if (!(authentication instanceof AnonymousAuthenticationToken)){
+            if(roles.contains("ADMIN")){
+                return "redirect:/admin/home";
+            }
+            if(roles.contains("USER")){
+                return "redirect:/user/home";
+            }
+        }
+        return "login";
+    }
     @Autowired
     UserService userService;
     @GetMapping("/signup")
@@ -32,24 +46,17 @@ public class MainController {
     public String createUser(@ModelAttribute UserInformation user){
         if(userService.checkEmailExist(user.getEmail())){
 //            model.addAttribute("error",true);
-            return "redirect:/signup?message=error";
+            return "redirect:/signup?emailError";
+        }
+        if(userService.checkUsernameExist(user.getUsername())){
+            return "redirect:/signup?userNameError";
         }
         userService.saveUser(user);
         return "redirect:/index?message=success";
     }
     @GetMapping("/login")
     public String login(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (!(authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
-                if(roles.contains("ADMIN")){
-                    return "redirect:/admin/home";
-                }
-                if(roles.contains("USER")){
-                    return "redirect:/user/home";
-                }
-        }
-        return "login";
+        return AuthRedirect();
     }
 //    @GetMapping("/create")
 //    public String redirectToHome(){
@@ -59,7 +66,7 @@ public class MainController {
     public String home(@RequestParam(name="message",required = false) String param , Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (!(authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
             if(roles.contains("ADMIN")){
                 return "redirect:/admin/home";
             }
@@ -76,4 +83,5 @@ public class MainController {
     public String def(){
         return "redirect:/index";
     }
+
 }
